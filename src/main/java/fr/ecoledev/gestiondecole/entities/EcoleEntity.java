@@ -1,15 +1,15 @@
 package fr.ecoledev.gestiondecole.entities;
+import java.util.*;
 
-import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import fr.ecoledev.gestiondecole.repositories.ClasseRepository;
-import fr.ecoledev.gestiondecole.repositories.EcoleRepository;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -27,15 +27,12 @@ public class EcoleEntity {
 	private String ecoleEmail;
 	private boolean ecoleStatus;
 	
-	@OneToMany(mappedBy="classeId")
-    private Set<ClassEntity> classes;
-	
-	@Autowired
-	private EcoleRepository erp;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name= "fk_ecole_id", referencedColumnName ="ecoleId")
+    private List<ClassEntity> classes;
 	 
-	@Autowired
-	private ClasseRepository crp;
 	
+
 	/**
 	 * Empty Constructor
 	 */
@@ -43,14 +40,14 @@ public class EcoleEntity {
 
 
 	public EcoleEntity(String ecoleName, String ecoleAddress, String ecolePhone, String ecoleEmail,
-			boolean ecoleStatus, Set<ClassEntity> classes) {
+			boolean ecoleStatus) {
 		super();
 		this.ecoleName = ecoleName;
 		this.ecoleAddress = ecoleAddress;
 		this.ecolePhone = ecolePhone;
 		this.ecoleEmail = ecoleEmail;
 		this.ecoleStatus = ecoleStatus;
-		this.classes = classes;
+
 	}
 
 
@@ -58,6 +55,9 @@ public class EcoleEntity {
 		return ecoleId;
 	}
 
+	public void setEcoleId(Long ecoleId) {
+		this.ecoleId = ecoleId;
+	}
 
 	public String getEcoleName() {
 		return ecoleName;
@@ -109,16 +109,16 @@ public class EcoleEntity {
 	}
 
 
-	public Set<ClassEntity> getClasses(Long ecoleId) {
-		
-		return erp.findClassEntityByEcoleId(ecoleId);
-    
+	public List<ClassEntity> getClasses() {
+		return classes;
 	}
 
 
-	public void setClasses(Set<ClassEntity> classes) {
+	public void setClasses(List<ClassEntity> classes) {
 		this.classes = classes;
 	}
+
+
 
 
 }
