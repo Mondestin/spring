@@ -1,11 +1,9 @@
 package fr.ecoledev.gestiondecole.entities;
 import java.util.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,7 +26,7 @@ public class EcoleEntity {
 	private boolean ecoleStatus;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name= "fk_ecole_id", referencedColumnName ="ecoleId")
+	@JoinColumn(name= "ecole_id", referencedColumnName ="ecoleId")
     private List<ClassEntity> classes;
 	 
 	
@@ -39,6 +37,13 @@ public class EcoleEntity {
 	public EcoleEntity() {}
 
 
+	/**
+	 * @param ecoleName
+	 * @param ecoleAddress
+	 * @param ecolePhone
+	 * @param ecoleEmail
+	 * @param ecoleStatus
+	 */
 	public EcoleEntity(String ecoleName, String ecoleAddress, String ecolePhone, String ecoleEmail,
 			boolean ecoleStatus) {
 		super();
@@ -50,70 +55,110 @@ public class EcoleEntity {
 
 	}
 
-
+	/**
+	 * @return ecoleId
+	 */
 	public Long getEcoleId() {
 		return ecoleId;
 	}
 
+	/**
+	 * @param ecoleId
+	 */
 	public void setEcoleId(Long ecoleId) {
 		this.ecoleId = ecoleId;
 	}
 
+	/**
+	 * @return ecoleName
+	 */
 	public String getEcoleName() {
 		return ecoleName;
 	}
 
 
+	/**
+	 * @param ecoleName
+	 */
 	public void setEcoleName(String ecoleName) {
 		this.ecoleName = ecoleName;
 	}
 
-
+	/**
+	 * @return ecoleAddress
+	 */
 	public String getEcoleAddress() {
 		return ecoleAddress;
 	}
 
 
+	/**
+	 * @param ecoleAddress
+	 */
 	public void setEcoleAddress(String ecoleAddress) {
 		this.ecoleAddress = ecoleAddress;
 	}
 
 
+	/**
+	 * @return ecolePhone
+	 */
 	public String getEcolePhone() {
 		return ecolePhone;
 	}
 
 
+	/**
+	 * @param ecolePhone
+	 */
 	public void setEcolePhone(String ecolePhone) {
 		this.ecolePhone = ecolePhone;
 	}
 
 
+	/**
+	 * @return ecoleEmail
+	 */
 	public String getEcoleEmail() {
 		return ecoleEmail;
 	}
 
 
+	/**
+	 * @param ecoleEmail
+	 */
 	public void setEcoleEmail(String ecoleEmail) {
 		this.ecoleEmail = ecoleEmail;
 	}
 
 
+	/**
+	 * @return ecoleStatus
+	 */
 	public boolean isEcoleStatus() {
 		return ecoleStatus;
 	}
 
 
+	/**
+	 * @param ecoleStatus
+	 */
 	public void setEcoleStatus(boolean ecoleStatus) {
 		this.ecoleStatus = ecoleStatus;
 	}
 
 
+	/**
+	 * @return classes
+	 */
 	public List<ClassEntity> getClasses() {
 		return classes;
 	}
 
 
+	/**
+	 * @param classes
+	 */
 	public void setClasses(List<ClassEntity> classes) {
 		this.classes = classes;
 	}
